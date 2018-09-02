@@ -1,0 +1,22 @@
+{
+  "name": "quotes",
+  "version": "1.0.0",
+  "description": "random programming quotes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uittorio/quotes.git"
+  },
+  "author": "Giulio Caprino & Vittorio Guerriero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uittorio/quotes/issues"
+  },
+  "homepage": "https://github.com/uittorio/quotes#readme",
+  "devDependencies": {
+    "electron": "2.0.8"
+  }
+}
