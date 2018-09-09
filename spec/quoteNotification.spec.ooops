@@ -1,0 +1,106 @@
+// import { NotificationService } from "../src/main/notificationService/notificationService";
+// import { QuotesDate } from "../src/date/date";
+// import { OnceADay } from "../src/main/frequency/onceADay";
+// import { QuoteNotification } from "../src/main/quoteNotification/quoteNotification";
+// import { QuoteData } from "../src/core/quoteData";
+// import { StaticRandomizer } from "../src/main/randomizer/staticRandomizer";
+// import { SimpleStore } from "../src/main/store/simpleStore";
+//
+// describe('quote notification', () => {
+// 	let notificationService: NotificationService<QuoteData>;
+// 	let quotes: Array<QuoteData>;
+// 	let randomizer: StaticRandomizer<QuoteData>;
+//
+// 	beforeEach(() => {
+// 		randomizer = new StaticRandomizer<QuoteData>();
+// 		quotes = [
+// 			{
+// 				id: "1",
+// 				text: "a test",
+// 				title: "a title",
+// 				author: "an author",
+// 				book: "a book"
+// 			},
+// 			{
+// 				id: "2",
+// 				text: "a test 2",
+// 				title: "a title 2",
+// 				author: "an author 2",
+// 				book: "a book 2"
+// 			}
+// 		]
+// 	});
+//
+// 	describe('when notification is once a day at 9 am', () => {
+// 		let timeFrame: QuotesDate;
+//
+// 		beforeEach(() => {
+// 			timeFrame = QuotesDate.hourMinutes(9, 0);
+// 		});
+//
+// 		describe('when the time is before 9 am and there are previous notification', () => {
+// 			beforeEach(() => {
+// 				notificationService = new NotificationService(quotes, new OnceADay(), timeFrame, new SimpleStore(), randomizer);
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 9, 12, 0);
+// 			});
+//
+// 			it('should return the previous notification', () => {
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 12, 9, 7, 0);
+// 			});
+// 		});
+//
+// 		describe('when the time is before 9 am and there are not previous notification', () => {
+// 			beforeEach(() => {
+// 				notificationService = new NotificationService(quotes, new OnceADay(), timeFrame, new SimpleStore(), randomizer);
+// 			});
+// 			it('should return undefined', () => {
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 12, 9, 7, 0);
+// 			});
+// 		});
+//
+// 		describe('when the notification has already been sent', () => {
+// 			beforeEach(() => {
+// 				notificationService = new NotificationService(quotes, new OnceADay(), timeFrame, new SimpleStore(), randomizer);
+//
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 9, 13, 0);
+// 				//QuoteNotification.get(notificationService, dateToCheck);
+// 			});
+//
+// 			it('should return the notification', () => {
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 9, 14, 0);
+// 				//expect(QuoteNotification.get(notificationService, dateToCheck)).toBe(quotes[0]);
+// 			});
+// 		});
+//
+// 		describe('when the notification has not already been sent', () => {
+// 			beforeEach(() => {
+// 				notificationService = new NotificationService(quotes, new OnceADay(), timeFrame, new SimpleStore(), randomizer);
+//
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 9, 13, 0);
+// 				//QuoteNotification.get(notificationService, dateToCheck);
+// 			});
+//
+// 			it('should return another notification', () => {
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 10, 14, 0);
+// 				//expect(QuoteNotification.get(notificationService, dateToCheck)).toBe(quotes[1]);
+// 			});
+// 		});
+//
+// 		describe('when all the notification has been seen and is a different day', () => {
+// 			beforeEach(() => {
+// 				notificationService = new NotificationService(quotes, new OnceADay(), timeFrame, new SimpleStore(), randomizer);
+//
+// 				const dateToCheck1: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 9, 13, 0);
+// 				const dateToCheck2: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 10, 14, 0);
+//
+// 				//QuoteNotification.get(notificationService, dateToCheck1);
+// 				//QuoteNotification.get(notificationService, dateToCheck2);
+// 			});
+//
+// 			it('should return the first notification', () => {
+// 				//const dateToCheck: QuotesDate = QuotesDate.yearMonthDayHourMinute(2018, 11, 11, 15, 0);
+// 				//expect(QuoteNotification.get(notificationService, dateToCheck)).toBe(quotes[0]);
+// 			});
+// 		});
+// 	});
+// });

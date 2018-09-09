@@ -2,9 +2,18 @@
   "name": "quotes",
   "version": "1.0.0",
   "description": "random programming quotes",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-webpack dev",
+    "build": "electron-webpack && electron-builder -mw",
+    "test": "jasmine-ts \"spec/**/*.spec.ts\""
+  },
+  "build": {
+    "win": {
+      "icon": "src/icons/win/logo.ico"
+    },
+    "mac": {
+      "icon": "src/icons/mac/logo.icns"
+    }
   },
   "repository": {
     "type": "git",
@@ -17,6 +26,23 @@
   },
   "homepage": "https://github.com/uittorio/quotes#readme",
   "devDependencies": {
-    "electron": "2.0.8"
+    "@types/jasmine": "2.8.8",
+    "do-nothing-loader": "1.0.0",
+    "electron": "2.0.8",
+    "electron-builder": "20.28.3",
+    "electron-store": "2.0.0",
+    "electron-webpack": "2.3.1",
+    "jasmine": "3.2.0",
+    "jasmine-ts": "0.2.1",
+    "ts-loader": "5.0.0",
+    "typescript": "3.0.3",
+    "vue": "2.5.17",
+    "vue-loader": "15.4.1",
+    "vue-svg-loader": "0.9.0",
+    "vue-template-compiler": "2.5.17",
+    "webpack": "4.17.1"
+  },
+  "dependencies": {
+    "source-map-support": "0.5.9"
   }
 }
