@@ -44,10 +44,13 @@ export class NotificationService<T extends NotificationData> {
 	
 	public getRandomNotificationOn(date: QuotesDate): T {
 		const notificationSent: Array<string> = this._getNotificationSent();
+		const notificationHistory: Array<T> = this._getNotificationHistory();
 		const quote: T = this._getRandomNotification();
 		
 		notificationSent.push(quote.id);
 		this._store.set("notification-sent", notificationSent);
+		notificationHistory.push(quote);
+		this._store.set("notification-history", notificationHistory);
 		
 		this._addNotificationDate(date);
 		
@@ -55,11 +58,9 @@ export class NotificationService<T extends NotificationData> {
 	}
 	
 	public getLatestNotification(): T | undefined {
-		const notificationSentReverted: Array<string> = this._getNotificationSent().reverse();
+		const notificationSentReverted: Array<T> = this._getNotificationHistory().reverse();
 		
-		return this._notificationData.find((quote: T) => {
-			return quote.id === notificationSentReverted[0];
-		})
+		return notificationSentReverted[0];
 	}
 	
 	private _addNotificationDate(date: QuotesDate) {
@@ -89,5 +90,9 @@ export class NotificationService<T extends NotificationData> {
 		return this._notificationData.filter((quote: T) => {
 			return !notificationSent.includes(quote.id);
 		});
+	}
+	
+	private _getNotificationHistory(): Array<T> {
+		return this._store.get<T>("notification-history") || [];
 	}
 }

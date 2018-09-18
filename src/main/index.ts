@@ -24,16 +24,6 @@ QuoteApp.create().then(() => {
 	}
 	
 	const window: QuoteWindow = QuoteWindow.create(windowLoader);
-	const randomizer: StandardRandomizer<QuoteData> = new StandardRandomizer();
-	let notificationEnabled: boolean = false;
-	
-	window.onHide(() => {
-		notificationEnabled = true;
-	});
-	
-	window.onShow(() => {
-		notificationEnabled = false;
-	});
 	
 	window.ready().then(() => {
 		https.get(quoteUrl, (resp: any) => {
@@ -50,14 +40,19 @@ QuoteApp.create().then(() => {
 	});
 	
 	function showQuote(data: Array<QuoteData>) {
-		const timeInFrequency = QuotesDate.hourMinutes(16, 0);
+		const randomizer: StandardRandomizer<QuoteData> = new StandardRandomizer();
 		
-		const notificationService = new NotificationService<QuoteData>(data, new OnceADay(), timeInFrequency, new Store(), randomizer);
+		const timeInFrequency = QuotesDate.hourMinutes(9, 0);
+		const notificationService = new NotificationService<QuoteData>(data,
+			new OnceADay(),
+			timeInFrequency,
+			new Store(),
+			randomizer);
 		
-		QuoteNotification.get(notificationService, QuotesDate.now(), window, notificationEnabled);
+		QuoteNotification.get(notificationService, QuotesDate.now(), window);
 		
 		setInterval(() => {
-			QuoteNotification.get(notificationService, QuotesDate.now(), window, notificationEnabled);
+			QuoteNotification.get(notificationService, QuotesDate.now(), window);
 		}, 3000);
 	}
 });

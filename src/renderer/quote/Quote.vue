@@ -10,7 +10,7 @@
 				{{quote.text}}
 			</p>
 
-			<p class="Quote-info">
+			<p class="Quote-info" v-if="quote.author && quote.book">
 				{{quote.author}} - {{quote.book}}
 			</p>
 		</div>

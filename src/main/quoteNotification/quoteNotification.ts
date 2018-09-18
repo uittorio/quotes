@@ -1,13 +1,12 @@
 import { NotificationService } from "../notificationService/notificationService";
 import { QuotesDate } from "../../date/date";
 import { QuoteData } from "../../core/quoteData";
-import { QuoteWindow } from "../quotesWindow/quoteWindow";
+import { Messenger } from "../messenger";
 
 export class QuoteNotification {
 	public static get(quoteNotification: NotificationService<QuoteData>,
 										date: QuotesDate,
-										window: QuoteWindow,
-										notificationEnabled: boolean): void {
+										window: Messenger): void {
 		if (quoteNotification.hasAlreadySeenAll()) {
 			quoteNotification.resetNotifications();
 		}
@@ -18,10 +17,8 @@ export class QuoteNotification {
 		if (!hasAlreadySent && isAfter) {
 			const notification: QuoteData = quoteNotification.getRandomNotificationOn(date);
 			window.sendQuote(notification);
+			window.sendNotification(notification);
 			
-			if (notificationEnabled) {
-				window.sendNotification(notification);
-			}
 		} else {
 			const latestNotification: QuoteData | undefined = quoteNotification.getLatestNotification();
 			if (latestNotification) {

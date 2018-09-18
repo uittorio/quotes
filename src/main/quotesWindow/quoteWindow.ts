@@ -2,9 +2,11 @@ import * as Electron from "electron";
 import { WindowLoader } from "../windowLoader/windowLoader";
 import { QuoteData } from "../../core/quoteData";
 import BrowserWindow = Electron.BrowserWindow;
+import { Messenger } from "../messenger";
 
-export class QuoteWindow {
+export class QuoteWindow implements Messenger {
 	private readonly _window: Electron.BrowserWindow;
+	private _notificationEnabled: boolean = false;
 	
 	constructor(winLoader: WindowLoader) {
 		this._window = new BrowserWindow({
@@ -12,13 +14,20 @@ export class QuoteWindow {
 			title: "Quotes",
 			width: 700,
 			height: 500,
-			
 		});
 		
 		winLoader.load(this._window);
 		
 		this._window.on('closed', () => {
 			(this._window as any) = null;
+		});
+		
+		this._window.on("hide", () => {
+			this._notificationEnabled = true;
+		});
+		
+		this._window.on("show", () => {
+			this._notificationEnabled = false;
 		});
 	}
 	
@@ -30,20 +39,8 @@ export class QuoteWindow {
 		return new Promise((resolve) => {
 			this._window.once('ready-to-show', () => {
 				this._window.show();
-				resolve()
+				resolve();
 			});
-		});
-	}
-	
-	public onHide(fn: () => void) {
-		this._window.on("hide", () => {
-			fn();
-		});
-	}
-	
-	public onShow(fn: () => void) {
-		this._window.on("show", () => {
-			fn();
 		});
 	}
 	
@@ -51,7 +48,9 @@ export class QuoteWindow {
 		this._window.webContents.send('quote' , { msg: quote });
 	}
 	
-	sendNotification(notification: QuoteData) {
-		this._window.webContents.send("notification", { msg: notification });
+	public sendNotification(notification: QuoteData) {
+		if (this._notificationEnabled) {
+			this._window.webContents.send("notification", { msg: notification });
+		}
 	}
 }
