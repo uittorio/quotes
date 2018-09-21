@@ -4,11 +4,11 @@ export class QuoteApp {
 	static create() {
 		return new Promise((resolve) => {
 			Electron.app.on('ready', () => {
-				resolve()
+				resolve();
 			});
 			
 			Electron.app.setLoginItemSettings({
-				openAtLogin: false
+				openAtLogin: true
 			});
 		})
 	}

@@ -1,7 +1,7 @@
 import Vue from "Vue";
-import Quote from "./quote/Quote.vue";
 import * as Electron from "electron";
 import { QuoteData } from "../core/quoteData";
+import App from "./app/App.vue";
 
 new Vue({
 	el: "#app",
@@ -9,13 +9,16 @@ new Vue({
 		quote: {}
 	},
 	render(h) {
-		return h(Quote, {
+		return h(App, {
 			props: {
-				quote: this.quote
+				quote: this.quote,
+				loading: this.isLoading
 			}
 		})
 	},
 	created: function () {
+		this.isLoading = false;
+		
 		Electron.ipcRenderer.on('quote' , (event: any , data: { msg: QuoteData }) => {
 			this.quote = data.msg;
 		});
@@ -26,6 +29,13 @@ new Vue({
 			});
 		});
 		
+		Electron.ipcRenderer.on('loading' , (event: any , data: { msg: QuoteData }) => {
+			this.isLoading = true;
+		});
+		
+		Electron.ipcRenderer.on('finishLoading' , (event: any , data: { msg: QuoteData }) => {
+			this.isLoading = false;
+		});
 	}
 });
 

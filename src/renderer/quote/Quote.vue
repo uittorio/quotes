@@ -30,28 +30,9 @@
 </script>
 
 <style>
-	@font-face {
-		font-family: "OpenSans-bold";
-		src: url("../fonts/OpenSans-bold.ttf");
-	}
-
-	@font-face {
-		font-family: "OpenSans-semibold";
-		src: url("../fonts/OpenSans-SemiBold.ttf");
-	}
-
-	@font-face {
-		font-family: "OpenSans-lightitalic";
-		src: url("../fonts/OpenSans-LightItalic.ttf");
-	}
-
 	img {
 		width: 100px;
 		height: 100px;
-	}
-
-	.Quote-container {
-		padding: 30px;
 	}
 
 	.Quote-logo {

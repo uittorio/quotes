@@ -53,4 +53,12 @@ export class QuoteWindow implements Messenger {
 			this._window.webContents.send("notification", { msg: notification });
 		}
 	}
+	
+	public sendFinishLoading() {
+		this._window.webContents.send("finishLoading");
+	}
+	
+	public sendLoading() {
+		this._window.webContents.send("loading");
+	}
 }
