@@ -10,6 +10,8 @@ export class QuoteApp {
 			Electron.app.setLoginItemSettings({
 				openAtLogin: true
 			});
+			
+			Electron.app.setAppUserModelId("com.quotes.id");
 		})
 	}
 }

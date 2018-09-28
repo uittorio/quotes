@@ -6,7 +6,7 @@ import { Messenger } from "../messenger";
 
 export class QuoteWindow implements Messenger {
 	private readonly _window: Electron.BrowserWindow;
-	private _notificationEnabled: boolean = false;
+	private _eventsOnClose: Array<() => void> = [];
 	
 	constructor(winLoader: WindowLoader) {
 		this._window = new BrowserWindow({
@@ -19,20 +19,19 @@ export class QuoteWindow implements Messenger {
 		winLoader.load(this._window);
 		
 		this._window.on('closed', () => {
+			this._eventsOnClose.forEach((event) => {
+				event();
+			});
 			(this._window as any) = null;
-		});
-		
-		this._window.on("hide", () => {
-			this._notificationEnabled = true;
-		});
-		
-		this._window.on("show", () => {
-			this._notificationEnabled = false;
 		});
 	}
 	
 	static create(winLoader: WindowLoader) {
 		return new QuoteWindow(winLoader);
+	}
+	
+	public registerEventOnClose(event: () => void) {
+		this._eventsOnClose.push(event);
 	}
 	
 	public ready(): Promise<void> {
@@ -49,7 +48,7 @@ export class QuoteWindow implements Messenger {
 	}
 	
 	public sendNotification(notification: QuoteData) {
-		if (this._notificationEnabled) {
+		if (!this._window.isVisible() || !this._window.isFocused()) {
 			this._window.webContents.send("notification", { msg: notification });
 		}
 	}

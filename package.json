@@ -8,6 +8,7 @@
     "test": "jasmine-ts \"spec/**/*.spec.ts\""
   },
   "build": {
+    "appId": "com.quotes.id",
     "win": {
       "icon": "src/icons/win/logo.ico"
     },

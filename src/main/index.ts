@@ -18,6 +18,10 @@ import { QuoteList } from "./quote/quoteList";
 const Store = require('electron-store');
 
 QuoteApp.create().then(() => {
+	function removeCheckShowQuote() {
+		clearInterval(intervalNotification);
+	}
+	
 	let windowLoader: WindowLoader;
 	let intervalNotification;
 	
@@ -28,6 +32,7 @@ QuoteApp.create().then(() => {
 	}
 	
 	const window: QuoteWindow = QuoteWindow.create(windowLoader);
+	window.registerEventOnClose(removeCheckShowQuote);
 	
 	window.ready().then(() => {
 		window.sendLoading();
@@ -40,7 +45,7 @@ QuoteApp.create().then(() => {
 	Electron.ipcMain.on("new-quote", (event: any, newQuote: QuoteData) => {
 		window.sendLoading();
 		QuoteService.add(newQuote).then((quoteData: Array<QuoteData>) => {
-			clearInterval(intervalNotification);
+			removeCheckShowQuote();
 			showQuote(new QuoteList(quoteData));
 			window.sendFinishLoading();
 		});
