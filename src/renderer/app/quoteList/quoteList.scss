@@ -1,49 +1,52 @@
-.QuoteList-header {
-  padding-bottom: 30px;
-  font-family: "OpenSans-semibold", serif;
-}
+.QuoteList {
+  &-header {
+    padding-bottom: 30px;
+    font-family: "OpenSans-semibold", serif;
+  }
 
-.QuoteList-header, .QuoteList-quote {
-  display: flex;
-  align-items: center;
-}
+  &-header, &-quote {
+    display: flex;
+    align-items: center;
 
-.QuoteList-header span, .QuoteList-quote span {
-  flex: 1 0 0;
-}
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1 0 0;
 
-.QuoteList-header span:first-child, .QuoteList-quote span:first-child {
-  flex: 2 0 0;
-}
+      &:first-child {
+        flex: 2 0 0;
+      }
 
-.QuoteList-header span, .QuoteList-quote span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+      &:not(:last-child) {
+        padding-right: 10px;
+      }
+    }
+  }
 
-.QuoteList-quote span {
-  font-family: "OpenSans-lightitalic", serif;
-}
+  &-quote {
+    font-family: "OpenSans-lightitalic", serif;
 
-.QuoteList-quote span:not(:last-child), .QuoteList-header span:not(:last-child) {
-  padding-right: 10px;
-}
+    &:not(:last-child) {
+      padding-top: 5px;
+    }
+  }
 
-.QuoteList-quote:not(:last-child) {
-  padding-top: 5px;
-}
+  &-back {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    --button-hover-color: #515151;
+    --button-border-radius: 4px 4px 0 0;
+  }
 
-.QuoteList-header .QuoteList-actionContainer,
-.QuoteList-quote .QuoteList-actionContainer {
-  flex: 0.5 0 0;
-}
+  &-actionContainer {
+    flex: 0.5 0 0;
+  }
 
-.QuoteList-delete {
-  cursor: pointer;
-}
-
-.QuoteList-deleteQuote {
-  width: 30px;
-  height: 30px;
+  &-delete {
+    width: 30px;
+    height: 30px;
+  }
 }

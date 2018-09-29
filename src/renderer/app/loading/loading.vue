@@ -1,13 +1,13 @@
 <template>
-    <div class="lds-dual-ring"></div>
+    <div class="Loading-ring"></div>
 </template>
 
 <script lang="ts">
 	export default {
-		name: "Loading"
+      name: "Loading"
 	}
 </script>
 
-<style>
+<style lang="scss">
     @import "./loading.scss";
 </style>

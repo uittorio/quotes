@@ -1,0 +1,14 @@
+.Button {
+  &-button {
+    padding: 10px;
+    color: aliceblue;
+    background-color: var(--button-color, #343434);
+    border-radius: var(--button-border-radius);
+    font-family: "OpenSans-semibold", serif;
+    font-size: 13px;
+
+    &:hover {
+      background-color: var(--button-hover-color);
+    }
+  }
+}

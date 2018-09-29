@@ -1,41 +1,47 @@
-.QuoteForm-inputContainer {
-  padding: 5px;
-}
 
-.QuoteForm-inputContainer label {
-  display: block;
-  margin-bottom: 4px;
-}
+.QuoteForm {
+  &-inputContainer {
+    padding: 5px;
 
-.QuoteForm-inputContainer .QuoteForm-input {
-  margin: 0;
-  border: 0;
-  padding: 0;
-  line-height: 1.2;
-  font-size: 16px;
-  white-space: normal;
-  width: 100%;
-  color: #515151;
-  border-bottom: 1px solid #515151;
-  outline: none;
-}
+    label {
+      display: block;
+      margin-bottom: 4px;
+    }
 
-.QuoteForm-inputContainer textarea {
-  resize: none;
-}
+    textarea {
+      resize: none;
+    }
+  }
 
-.QuoteForm-error {
-  font-size: 14px;
-  color: #9b0006;
-}
+  &-input {
+    color: #515151;
+    border-bottom: 1px solid #515151;
+    font-size: 16px;
+  }
 
-.QuoteForm-buttonContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
-}
+  &-error {
+    font-size: 14px;
+    color: #9b0006;
+  }
 
-.QuoteForm-buttonContainer button:first-child {
-  margin-right: 40px;
+  &-buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  &-close, &-save {
+    --button-border-radius: 4px;
+  }
+
+  &-close {
+    --button-color: #636363;
+    --button-hover-color: #838383;
+    margin-left: 40px;
+  }
+
+  &-save {
+    --button-hover-color: #515151;
+  }
 }

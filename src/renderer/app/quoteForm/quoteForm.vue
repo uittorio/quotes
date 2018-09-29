@@ -28,9 +28,16 @@
                       rows="4"
                       v-model="text"></textarea>
         </div>
+
         <div class="QuoteForm-buttonContainer">
-            <button type="submit" v-on:click="save()" class="App-button">Add</button>
-            <button v-on:click="close()" class="App-button App-button-light">Cancel</button>
+            <QuoteButton v-on:pressed="save()"
+                         class="QuoteForm-save"
+                         v-bind:text="'Add'">
+            </QuoteButton>
+            <QuoteButton v-on:pressed="close()"
+                         class="QuoteForm-close"
+                         v-bind:text="'Cancel'">
+            </QuoteButton>
         </div>
 
         <div v-if="errors.length" class="QuoteForm-error">
@@ -43,10 +50,12 @@
 	import * as Electron from "electron";
 	import { QuoteData } from "../../../core/quoteData";
 	import ipcRenderer = Electron.ipcRenderer;
+		import QuoteButton from "../button/button";
 
 	export default {
 		name: "QuoteForm",
-		data: () => {
+			components: {QuoteButton},
+			data: () => {
 			return {
 				errors: [],
 				text: "",
@@ -93,6 +102,6 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
     @import "./quoteForm.scss";
 </style>

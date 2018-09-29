@@ -1,9 +1,10 @@
 <template>
     <div class="App-container" v-if="quote.text">
-        <div v-if="!listActive" class="App-buttonListContainer">
-            <button v-on:click="showList()"
-                    class="App-button App-buttonList">All quotes</button>
-        </div>
+        <quoteButton v-on:pressed="showList()"
+                     v-if="!listActive && !formActive"
+                     class="App-buttonList"
+                     v-bind:text="'All quotes'">
+        </quoteButton>
         <div v-if="loading"
              class="App-loadingContainer">
             <loading class="App-loading"></loading>
@@ -11,10 +12,12 @@
         <quoteForm v-if="formActive" v-on:cancel="hideForm()"></quoteForm>
         <quoteList v-bind:quote-list="quoteList" v-if="listActive" v-on:cancel="hideList()"></quoteList>
         <quote v-if="!formActive && !listActive" v-bind:quote="quote" class="App-quote"></quote>
-        <div v-if="!formActive && !listActive" class="App-buttonContainer">
-            <button v-on:click="showForm()"
-                    class="App-button App-buttonActivate">Add new Quote</button>
-        </div>
+
+        <quoteButton v-on:pressed="showForm()"
+                     v-if="!formActive && !listActive"
+                     class="App-buttonAdd"
+                     v-bind:text="'Add new Quote'">
+        </quoteButton>
     </div>
 </template>
 
@@ -22,10 +25,12 @@
 	import Quote from "./quote/quote";
 	import QuoteForm from "./quoteForm/quoteForm.vue";
 	import Loading from "./loading/loading.vue";
-		import QuoteList from "./quoteList/quoteList";
+    import QuoteList from "./quoteList/quoteList";
+    import QuoteButton from "./button/button";
 
 	export default {
       components: {
+        QuoteButton,
         QuoteList,
       	Quote,
         QuoteForm,
@@ -55,6 +60,6 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
     @import "./app.scss";
 </style>

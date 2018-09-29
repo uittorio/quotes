@@ -38,3 +38,13 @@ button {
     cursor: pointer;
   }
 }
+
+input, textarea {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  line-height: 1.2;
+  white-space: normal;
+  width: 100%;
+  outline: none;
+}

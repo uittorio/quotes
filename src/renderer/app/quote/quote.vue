@@ -8,7 +8,11 @@
 		<div class="Quote-textContainer" v-if="quote.id">
 			<p class="Quote-text">{{quote.text}}</p>
 
-			<p class="Quote-info" v-if="quote.author && quote.book">
+			<p class="Quote-info" v-if="!quote.book">
+				{{quote.author}}
+			</p>
+
+			<p class="Quote-info" v-if="quote.book">
 				{{quote.author}} - {{quote.book}}
 			</p>
 		</div>
@@ -26,6 +30,6 @@
   	}
 </script>
 
-<style>
+<style lang="scss">
 	@import "./quote.scss";
 </style>
