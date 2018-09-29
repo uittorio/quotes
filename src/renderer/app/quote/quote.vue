@@ -20,7 +20,6 @@
 </template>
 
 <script lang="ts">
-
 	export default {
 	  props: ['quote'],
 	  name: "Quote"
@@ -28,44 +27,5 @@
 </script>
 
 <style>
-	img {
-		width: 100px;
-		height: 100px;
-	}
-
-	.Quote-logo {
-		width: 100px;
-		height: 100px;
-	}
-
-	.Quote-logoContainerEnd {
-		display: flex;
-	}
-
-	.Quote-logoContainerEnd img {
-		margin: 0 0 0 auto;
-		transform: rotate(180deg);
-	}
-
-	.Quote-title {
-		font-family: "OpenSans-semibold", serif;
-		font-size: 40px;
-		margin: 0 0 0 auto;
-	}
-
-	.Quote-logoTopContainer {
-		display: flex;
-		align-items: center;
-	}
-
-	.Quote-text {
-		white-space: pre-wrap;
-		font-family: "OpenSans-lightitalic", serif;
-		font-size: 20px;
-	}
-
-	.Quote-info {
-		font-family: "OpenSans-lightitalic", serif;
-		font-size: 18px;
-	}
+	@import "./quote.scss";
 </style>

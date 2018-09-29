@@ -1,0 +1,41 @@
+.QuoteForm-inputContainer {
+  padding: 5px;
+}
+
+.QuoteForm-inputContainer label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.QuoteForm-inputContainer .QuoteForm-input {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  line-height: 1.2;
+  font-size: 16px;
+  white-space: normal;
+  width: 100%;
+  color: #515151;
+  border-bottom: 1px solid #515151;
+  outline: none;
+}
+
+.QuoteForm-inputContainer textarea {
+  resize: none;
+}
+
+.QuoteForm-error {
+  font-size: 14px;
+  color: #9b0006;
+}
+
+.QuoteForm-buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.QuoteForm-buttonContainer button:first-child {
+  margin-right: 40px;
+}

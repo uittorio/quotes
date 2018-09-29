@@ -1,0 +1,49 @@
+.QuoteList-header {
+  padding-bottom: 30px;
+  font-family: "OpenSans-semibold", serif;
+}
+
+.QuoteList-header, .QuoteList-quote {
+  display: flex;
+  align-items: center;
+}
+
+.QuoteList-header span, .QuoteList-quote span {
+  flex: 1 0 0;
+}
+
+.QuoteList-header span:first-child, .QuoteList-quote span:first-child {
+  flex: 2 0 0;
+}
+
+.QuoteList-header span, .QuoteList-quote span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.QuoteList-quote span {
+  font-family: "OpenSans-lightitalic", serif;
+}
+
+.QuoteList-quote span:not(:last-child), .QuoteList-header span:not(:last-child) {
+  padding-right: 10px;
+}
+
+.QuoteList-quote:not(:last-child) {
+  padding-top: 5px;
+}
+
+.QuoteList-header .QuoteList-actionContainer,
+.QuoteList-quote .QuoteList-actionContainer {
+  flex: 0.5 0 0;
+}
+
+.QuoteList-delete {
+  cursor: pointer;
+}
+
+.QuoteList-deleteQuote {
+  width: 30px;
+  height: 30px;
+}
