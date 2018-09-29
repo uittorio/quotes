@@ -38,13 +38,28 @@ QuoteApp.create().then(() => {
 		window.sendLoading();
 		ApiService.get(quoteUrl).then((quotesData: {quotes: Array<QuoteData>}) => {
 			window.sendFinishLoading();
+			
+			window.sendQuoteList(quotesData.quotes);
 			showQuote(new QuoteList(quotesData.quotes));
 		});
 	});
 	
-	Electron.ipcMain.on("new-quote", (event: any, newQuote: QuoteData) => {
+	Electron.ipcMain.on("new-quote", (event: any, quote: QuoteData) => {
 		window.sendLoading();
-		QuoteService.add(newQuote).then((quoteData: Array<QuoteData>) => {
+		QuoteService.add(quote).then((quoteData: Array<QuoteData>) => {
+			window.sendQuoteList(quoteData);
+			removeCheckShowQuote();
+			showQuote(new QuoteList(quoteData));
+			window.sendFinishLoading();
+		});
+	});
+	
+	
+	Electron.ipcMain.on("delete-quote", (event: any, quote: QuoteData) => {
+		window.sendLoading();
+		
+		QuoteService.remove(quote).then((quoteData: Array<QuoteData>) => {
+			window.sendQuoteList(quoteData);
 			removeCheckShowQuote();
 			showQuote(new QuoteList(quoteData));
 			window.sendFinishLoading();
@@ -60,6 +75,7 @@ QuoteApp.create().then(() => {
 			timeInFrequency,
 			new Store(),
 			randomizer);
+		
 		
 		QuoteNotification.get(notificationService, QuotesDate.now(), window);
 		

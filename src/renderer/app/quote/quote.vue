@@ -2,13 +2,11 @@
 	<div class="Quote-container">
 		<div class="Quote-logoTopContainer">
 			<img class="Quote-logo"
-				 src="../icons/quote.svg">
+				 src="../../icons/quote.svg">
 			<span class="Quote-title">{{quote.title}}</span>
 		</div>
 		<div class="Quote-textContainer" v-if="quote.id">
-			<p class="Quote-text">
-				{{quote.text}}
-			</p>
+			<p class="Quote-text">{{quote.text}}</p>
 
 			<p class="Quote-info" v-if="quote.author && quote.book">
 				{{quote.author}} - {{quote.book}}
@@ -16,7 +14,7 @@
 		</div>
 		<div class="Quote-logoContainerEnd">
 			<img class="Quote-logo Quote-logoEnd"
-				 src="../icons/quote.svg">
+				 src="../../icons/quote.svg">
 		</div>
 	</div>
 </template>
@@ -61,6 +59,7 @@
 	}
 
 	.Quote-text {
+		white-space: pre-wrap;
 		font-family: "OpenSans-lightitalic", serif;
 		font-size: 20px;
 	}

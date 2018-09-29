@@ -41,7 +41,7 @@
 
 <script lang="ts">
 	import * as Electron from "electron";
-	import { QuoteData } from "../../core/quoteData";
+	import { QuoteData } from "../../../core/quoteData";
 	import ipcRenderer = Electron.ipcRenderer;
 
 	export default {
@@ -70,10 +70,6 @@
 					this.errors.push("please enter an author");
 				}
 
-				if (!this.book) {
-					this.errors.push("please enter the book name");
-				}
-
 				if (!this.title) {
 					this.errors.push("please enter a title");
 				}
@@ -92,7 +88,6 @@
 					ipcRenderer.send('new-quote', newQuote);
 					this.$emit("cancel");
 				}
-
 			}
 		}
 	}

@@ -60,4 +60,10 @@ export class QuoteWindow implements Messenger {
 	public sendLoading() {
 		this._window.webContents.send("loading");
 	}
+	
+	sendQuoteList(quoteData: Array<QuoteData>) {
+		this._window.webContents.send("quoteList", {
+			list: quoteData
+		});
+	}
 }

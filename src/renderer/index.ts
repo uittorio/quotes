@@ -1,18 +1,21 @@
 import Vue from "Vue";
 import * as Electron from "electron";
 import { QuoteData } from "../core/quoteData";
-import App from "./app/App.vue";
+import App from "./app/app.vue";
 
 new Vue({
 	el: "#app",
 	data: {
-		quote: {}
+		quote: {},
+		loading: false,
+		quoteList: []
 	},
 	render(h) {
 		return h(App, {
 			props: {
 				quote: this.quote,
-				loading: this.isLoading
+				loading: this.isLoading,
+				quoteList: this.quoteList,
 			}
 		})
 	},
@@ -35,6 +38,10 @@ new Vue({
 		
 		Electron.ipcRenderer.on('finishLoading' , (event: any , data: { msg: QuoteData }) => {
 			this.isLoading = false;
+		});
+		
+		Electron.ipcRenderer.on('quoteList' , (event: any , data: { list: Array<QuoteData> }) => {
+			this.quoteList = data.list;
 		});
 	}
 });
