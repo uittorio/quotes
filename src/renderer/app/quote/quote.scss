@@ -1,7 +1,4 @@
-img {
-  width: 100px;
-  height: 100px;
-}
+@import '../../styles/_fonts.scss';
 
 .Quote {
   &-logo {
@@ -24,19 +21,19 @@ img {
   }
 
   &-title {
-    font-family: "OpenSans-semibold", serif;
+    font-family: $font-family-opensans-semibold;
     font-size: 40px;
     margin: 0 0 0 auto;
   }
 
   &-text {
     white-space: pre-wrap;
-    font-family: "OpenSans-lightitalic", serif;
+    font-family: $font-family-opensans-lightitalic;
     font-size: 20px;
   }
 
   &-info {
-    font-family: "OpenSans-lightitalic", serif;
+    font-family: $font-family-opensans-lightitalic;
     font-size: 18px;
   }
 }

@@ -1,7 +1,9 @@
+@import '../../styles/_fonts.scss';
+
 .QuoteList {
   &-header {
     padding-bottom: 30px;
-    font-family: "OpenSans-semibold", serif;
+    font-family: $font-family-opensans-semibold;
   }
 
   &-header, &-quote {
@@ -25,7 +27,7 @@
   }
 
   &-quote {
-    font-family: "OpenSans-lightitalic", serif;
+    font-family: $font-family-opensans-lightitalic;
 
     &:not(:last-child) {
       padding-top: 5px;

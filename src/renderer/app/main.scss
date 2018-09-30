@@ -1,25 +1,8 @@
-@font-face {
-  font-family: "OpenSans-bold";
-  src: url("../fonts/OpenSans-bold.ttf");
-}
-
-@font-face {
-  font-family: "OpenSans-semibold";
-  src: url("../fonts/OpenSans-SemiBold.ttf");
-}
-
-@font-face {
-  font-family: "OpenSans-lightitalic";
-  src: url("../fonts/OpenSans-LightItalic.ttf");
-}
-
-@font-face {
-  font-family: "OpenSans-light";
-  src: url("../fonts/OpenSans-Light.ttf");
-}
+@import '../styles/fontsface';
+@import '../styles/fonts.scss';
 
 html,body {
-  font-family: "OpenSans-light", serif;
+  font-family: $font-family-opensans-light;
   height: 100%;
   margin: 0;
 }
