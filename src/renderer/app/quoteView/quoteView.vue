@@ -1,10 +1,12 @@
 <template>
     <div>
         <quoteForm v-if="isFormActive"
+                   v-bind:quoteToEdit="quoteToEdit"
                    v-on:cancel="changeToQuote()">
         </quoteForm>
         <quoteList v-bind:quote-list="quoteList"
                    v-if="isListActive"
+                   v-on:edit="editQuote($event)"
                    v-on:cancel="changeToQuote()">
         </quoteList>
         <quote class="App-quote"
@@ -27,7 +29,14 @@
 		components: {Quote, QuoteList,QuoteForm},
 		data: function() {
           return {
-          	route: QuoteRoutes.QUOTE
+          	route: QuoteRoutes.QUOTE,
+            quoteToEdit: {
+              id: "",
+              title: "",
+              author: "",
+              text: "",
+              book: ""
+            }
           }
         },
 		computed: {
@@ -49,6 +58,18 @@
             this.route = QuoteRoutes.QUOTE;
           },
           changeToForm: function() {
+            this.quoteToEdit = {
+              id: "",
+              title: "",
+              author: "",
+              text: "",
+              book: ""
+            };
+            this.route = QuoteRoutes.FORM;
+          },
+          editQuote: function(quote) {
+          	console.log(quote);
+          	this.quoteToEdit = quote;
             this.route = QuoteRoutes.FORM;
           }
         },

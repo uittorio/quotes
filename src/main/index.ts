@@ -38,7 +38,6 @@ QuoteApp.create().then(() => {
 		window.sendLoading();
 		ApiService.get(quoteUrl).then((quotesData: {quotes: Array<QuoteData>}) => {
 			window.sendFinishLoading();
-			
 			window.sendQuoteList(quotesData.quotes);
 			showQuote(new QuoteList(quotesData.quotes));
 		});
@@ -47,24 +46,33 @@ QuoteApp.create().then(() => {
 	Electron.ipcMain.on("new-quote", (event: any, quote: QuoteData) => {
 		window.sendLoading();
 		QuoteService.add(quote).then((quoteData: Array<QuoteData>) => {
-			window.sendQuoteList(quoteData);
-			removeCheckShowQuote();
-			showQuote(new QuoteList(quoteData));
-			window.sendFinishLoading();
+			afterUpdate(quoteData);
+			
+		});
+	});
+	
+	
+	Electron.ipcMain.on("edit-quote", (event: any, quote: QuoteData) => {
+		window.sendLoading();
+		QuoteService.edit(quote).then((quoteData: Array<QuoteData>) => {
+			afterUpdate(quoteData);
 		});
 	});
 	
 	
 	Electron.ipcMain.on("delete-quote", (event: any, quote: QuoteData) => {
 		window.sendLoading();
-		
 		QuoteService.remove(quote).then((quoteData: Array<QuoteData>) => {
-			window.sendQuoteList(quoteData);
-			removeCheckShowQuote();
-			showQuote(new QuoteList(quoteData));
-			window.sendFinishLoading();
+			afterUpdate(quoteData);
 		});
 	});
+	
+	function afterUpdate(quoteData) {
+		window.sendQuoteList(quoteData);
+		removeCheckShowQuote();
+		showQuote(new QuoteList(quoteData));
+		window.sendFinishLoading();
+	}
 	
 	function showQuote(list: QuoteList) {
 		const randomizer: StandardRandomizer<QuoteData> = new StandardRandomizer();

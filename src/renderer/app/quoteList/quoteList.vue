@@ -14,9 +14,9 @@
                 <span> {{ quote.author}} </span>
                 <span> {{ quote.book}} </span>
                 <span class="QuoteList-actionContainer">
-                <button v-on:click="deleteQuote(quote)">
-                    <img src="../../icons/delete.svg"
-                         class="QuoteList-delete"/>
+                <button v-on:click="editQuote(quote)">
+                    <img src="../../icons/edit.svg"
+                         class="QuoteList-edit"/>
                 </button>
             </span>
             </div>
@@ -51,18 +51,8 @@
 			close: function () {
 				this.$emit("cancel");
 			},
-			deleteQuote: function (quote) {
-				smalltalk
-					.confirm('Bye Bye Quote', '', {
-						buttons: {
-							ok: 'Delete',
-							cancel: 'I was wrong'
-						}
-					})
-					.then(() => {
-						ipcRenderer.send('delete-quote', quote);
-					})
-					.catch(() => {});
+			editQuote: function (quote) {
+              this.$emit("edit", quote);
 			}
 		}
 	}

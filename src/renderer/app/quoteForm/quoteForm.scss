@@ -31,7 +31,7 @@
     margin-top: 40px;
   }
 
-  &-close, &-save {
+  &-close, &-save, &-delete {
     --button-border-radius: 4px;
   }
 
@@ -41,7 +41,11 @@
     margin-left: 40px;
   }
 
-  &-save {
+  &-delete {
+    margin-left: 40px;
+  }
+
+  &-save, &-delete {
     --button-hover-color: #515151;
   }
 }

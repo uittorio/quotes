@@ -9,12 +9,8 @@ export class QuoteService {
 		return ApiService.get(quoteUrl).then((quotesData: {quotes: Array<QuoteData>}) => {
 			quote.id = uuid();
 			quotesData.quotes.push(quote);
-
-			return ApiService.update(quoteBaseUrl, quotesData).then((quotesData: {quotes: Array<QuoteData>}) => {
-				return quotesData.quotes;
-			}).catch((e) => {
-				return e;
-			})
+			
+			return QuoteService._update(quoteBaseUrl, quotesData);
 		}).catch((e) => {
 			return e;
 		});
@@ -28,11 +24,29 @@ export class QuoteService {
 				})
 			};
 			
-			return ApiService.update(quoteBaseUrl, quotesUpdated).then((quotesData: {quotes: Array<QuoteData>}) => {
-				return quotesData.quotes;
-			}).catch((e) => {
-				return e;
-			})
+			return QuoteService._update(quoteBaseUrl, quotesUpdated);
+		}).catch((e) => {
+			return e;
+		})
+	}
+	
+	static edit(quoteToReplace: QuoteData) {
+		return ApiService.get(quoteUrl).then((quotesData: {quotes: Array<QuoteData>}) => {
+			const quoteIndex = quotesData.quotes.findIndex((quote: QuoteData) => {
+				return quoteToReplace.id === quote.id;
+			});
+			
+			quotesData.quotes[quoteIndex] = quoteToReplace;
+			
+			return QuoteService._update(quoteBaseUrl, quotesData);
+		}).catch((e) => {
+			return e;
+		});
+	}
+	
+	static _update(url: string, list: { quotes: Array<QuoteData> } ) {
+		return ApiService.update(url, list).then((quotesData: {quotes: Array<QuoteData>}) => {
+			return quotesData.quotes;
 		}).catch((e) => {
 			return e;
 		})
