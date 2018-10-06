@@ -1,5 +1,9 @@
 <template>
 	<div class="Quote-container">
+		<quoteButton v-on:pressed="goToList()"
+					 class="App-buttonList"
+					 v-bind:text="'All quotes'">
+		</quoteButton>
 		<div class="Quote-logoTopContainer">
 			<img class="Quote-logo"
 				 src="../../icons/quote.svg">
@@ -20,13 +24,29 @@
 			<img class="Quote-logo Quote-logoEnd"
 				 src="../../icons/quote.svg">
 		</div>
+
+		<quoteButton v-on:pressed="goToForm()"
+			class="App-buttonAdd"
+			v-bind:text="'Add new Quote'">
+		</quoteButton>
 	</div>
 </template>
 
 <script lang="ts">
+	import QuoteButton from "./../button/button";
+
 	export default {
+	  components: {QuoteButton},
 	  props: ['quote'],
-	  name: "Quote"
+	  name: "Quote",
+	  methods: {
+	  	goToList: function() {
+	  		this.$emit("goToList");
+		},
+		goToForm: function() {
+			this.$emit("goToForm");
+		}
+	  }
   	}
 </script>
 
