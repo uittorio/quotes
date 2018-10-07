@@ -3,9 +3,13 @@
         <quoteNavigation
                 v-on:goToList="changeToList()"
                 v-on:goToForm="changeToForm()"
-                v-on:goToHome="changeToQuote()">
+                v-on:goToHome="changeToQuote()"
+                v-on:goToSettings="changeToSettings()">
         </quoteNavigation>
         <div class="QuoteView-container">
+            <quote-settings v-if="isSettingsActive"
+                            v-bind:settingsTime="settingsTime">
+            </quote-settings>
             <quoteForm v-if="isFormActive"
                        v-bind:quoteToEdit="quoteToEdit"
                        v-on:done="changeToQuote()">
@@ -28,9 +32,10 @@
     import QuoteList from "./../quoteList/quoteList.vue";
     import QuoteForm from "./../quoteForm/quoteForm.vue";
     import QuoteNavigation from "./../quoteNavigation/quoteNavigation.vue";
+		import QuoteSettings from "../settings/settings";
 
 	export default {
-		components: {Quote, QuoteList,QuoteForm, QuoteNavigation},
+		components: {QuoteSettings, Quote, QuoteList,QuoteForm, QuoteNavigation},
 		data: function() {
           return {
           	route: QuoteRoutes.QUOTE,
@@ -52,6 +57,9 @@
           },
           isListActive: function() {
           	return this.route === QuoteRoutes.LIST;
+          },
+          isSettingsActive: function() {
+          	return this.route === QuoteRoutes.SETTINGS;
           }
 		},
         methods: {
@@ -60,6 +68,9 @@
           },
           changeToQuote: function() {
             this.route = QuoteRoutes.QUOTE;
+          },
+          changeToSettings: function() {
+          	this.route = QuoteRoutes.SETTINGS;
           },
           changeToForm: function() {
             this.quoteToEdit = {
@@ -72,12 +83,11 @@
             this.route = QuoteRoutes.FORM;
           },
           editQuote: function(quote) {
-          	console.log(quote);
           	this.quoteToEdit = quote;
             this.route = QuoteRoutes.FORM;
           }
         },
-		props: ['quote', 'quoteList']
+		props: ['quote', 'quoteList', 'settingsTime']
 	}
 </script>
 <style lang="scss">

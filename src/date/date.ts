@@ -1,11 +1,15 @@
 export class QuotesDate {
 	public date: Date;
 	
-	constructor() {
-		this.date = new Date();
+	constructor(date?: string) {
+		if (date) {
+			this.date = new Date(date);
+		} else {
+			this.date = new Date();
+		}
 	}
 	
- 	static hourMinutes(hour: number, minute: number): QuotesDate{
+ 	static hourMinutes(hour: number, minute: number): QuotesDate {
 		const date = new QuotesDate();
 		date.setHours(hour);
 		date.setMinutes(minute);
@@ -26,6 +30,15 @@ export class QuotesDate {
 	static fromTime(dateTime: number): QuotesDate {
 		const date: QuotesDate = new QuotesDate();
 		date.setTime(dateTime);
+		
+		return date;
+	}
+	
+	static fromTimeInput(timeInput: string): QuotesDate {
+		const date: QuotesDate = new QuotesDate();
+		const hoursMinutes = timeInput.split(":");
+		date.setHours(parseInt(hoursMinutes[0]));
+		date.setMinutes(parseInt(hoursMinutes[1]));
 		
 		return date;
 	}
@@ -77,6 +90,28 @@ export class QuotesDate {
 	
 	public getDate() {
 		return this.date.getDate();
+	}
+	
+	
+	public getHoursAndMinutes() {
+		let hours: string;
+		let minutes: string;
+		const dateHours: number = this.date.getHours();
+		const dateMinutes: number = this.date.getMinutes();
+		
+		if (dateHours < 10) {
+			hours = "0" + dateHours;
+		} else {
+			hours = dateHours.toString();
+		}
+		
+		if (dateMinutes < 10) {
+			minutes = "0" + dateMinutes
+		} else {
+			minutes = dateMinutes.toString();
+		}
+		
+		return hours + ":" + minutes;
 	}
 	
 	isSameDay(date: QuotesDate) {

@@ -2,6 +2,7 @@ import Vue from "Vue";
 import * as Electron from "electron";
 import { QuoteData } from "../core/quoteData";
 import App from "./app/app.vue";
+import { QuotesDate } from "../date/date";
 
 new Vue({
 	el: "#app",
@@ -16,6 +17,7 @@ new Vue({
 				quote: this.quote,
 				loading: this.isLoading,
 				quoteList: this.quoteList,
+				settingsTime: this.settingsTime
 			}
 		})
 	},
@@ -42,6 +44,11 @@ new Vue({
 		
 		Electron.ipcRenderer.on('quoteList' , (event: any , data: { list: Array<QuoteData> }) => {
 			this.quoteList = data.list;
+		});
+		
+		Electron.ipcRenderer.on('settings' , (event: any , data: { time: string}) => {
+			console.log(data.time);
+			this.settingsTime = data.time;
 		});
 	}
 });

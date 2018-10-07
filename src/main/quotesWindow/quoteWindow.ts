@@ -3,6 +3,7 @@ import { WindowLoader } from "../windowLoader/windowLoader";
 import { QuoteData } from "../../core/quoteData";
 import BrowserWindow = Electron.BrowserWindow;
 import { Messenger } from "../messenger";
+import { QuotesDate } from "../../date/date";
 
 export class QuoteWindow implements Messenger {
 	private readonly _window: Electron.BrowserWindow;
@@ -61,9 +62,15 @@ export class QuoteWindow implements Messenger {
 		this._window.webContents.send("loading");
 	}
 	
-	sendQuoteList(quoteData: Array<QuoteData>) {
+	public sendQuoteList(quoteData: Array<QuoteData>) {
 		this._window.webContents.send("quoteList", {
 			list: quoteData
+		});
+	}
+	
+	public sendSettings(time: QuotesDate) {
+		this._window.webContents.send("settings", {
+			time: time.date
 		});
 	}
 }

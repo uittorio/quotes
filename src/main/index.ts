@@ -18,8 +18,14 @@ import { QuoteList } from "./quote/quoteList";
 const Store = require('electron-store');
 
 QuoteApp.create().then(() => {
-	function removeCheckShowQuote() {
+	const store = new Store();
+	function removeCheckShowQuote(): void {
 		clearInterval(intervalNotification);
+	}
+	
+	function getCurrentTimeInFrequency(): QuotesDate {
+		let currentSetting = store.get("setting-time") || "09:00";
+		return QuotesDate.fromTimeInput(currentSetting);
 	}
 	
 	let windowLoader: WindowLoader;
@@ -39,6 +45,7 @@ QuoteApp.create().then(() => {
 		ApiService.get(quoteUrl).then((quotesData: {quotes: Array<QuoteData>}) => {
 			window.sendFinishLoading();
 			window.sendQuoteList(quotesData.quotes);
+			window.sendSettings(getCurrentTimeInFrequency());
 			showQuote(new QuoteList(quotesData.quotes));
 		});
 	});
@@ -47,10 +54,8 @@ QuoteApp.create().then(() => {
 		window.sendLoading();
 		QuoteService.add(quote).then((quoteData: Array<QuoteData>) => {
 			afterUpdate(quoteData);
-			
 		});
 	});
-	
 	
 	Electron.ipcMain.on("edit-quote", (event: any, quote: QuoteData) => {
 		window.sendLoading();
@@ -59,12 +64,16 @@ QuoteApp.create().then(() => {
 		});
 	});
 	
-	
 	Electron.ipcMain.on("delete-quote", (event: any, quote: QuoteData) => {
 		window.sendLoading();
 		QuoteService.remove(quote).then((quoteData: Array<QuoteData>) => {
 			afterUpdate(quoteData);
 		});
+	});
+	
+	Electron.ipcMain.on("settings", (event: any, time: string) => {
+		store.set("setting-time", time);
+		window.sendSettings(getCurrentTimeInFrequency());
 	});
 	
 	function afterUpdate(quoteData) {
@@ -76,14 +85,13 @@ QuoteApp.create().then(() => {
 	
 	function showQuote(list: QuoteList) {
 		const randomizer: StandardRandomizer<QuoteData> = new StandardRandomizer();
+		const timeInFrequency = getCurrentTimeInFrequency();
 		
-		const timeInFrequency = QuotesDate.hourMinutes(9, 0);
 		const notificationService = new NotificationService<QuoteData>(list.get(),
 			new OnceADay(),
 			timeInFrequency,
-			new Store(),
+			store,
 			randomizer);
-		
 		
 		QuoteNotification.get(notificationService, QuotesDate.now(), window);
 		

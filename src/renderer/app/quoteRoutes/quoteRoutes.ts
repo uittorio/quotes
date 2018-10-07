@@ -1,5 +1,6 @@
 export enum QuoteRoutes {
 	FORM,
 	LIST,
-	QUOTE
+	QUOTE,
+	SETTINGS
 }

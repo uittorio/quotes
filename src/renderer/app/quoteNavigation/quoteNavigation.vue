@@ -13,6 +13,11 @@
                      class="QuoteNavigation-button"
                      v-bind:text="'Add new Quote'">
         </quoteButton>
+
+        <quoteButton v-on:pressed="viewSettings()"
+                     class="QuoteNavigation-button"
+                     v-bind:text="'Settings'">
+        </quoteButton>
     </div>
 
 </template>
@@ -31,6 +36,9 @@
 			},
 			viewForm: function () {
 				this.$emit("goToForm");
+			},
+			viewSettings: function () {
+				this.$emit("goToSettings");
 			}
 		}
 	}

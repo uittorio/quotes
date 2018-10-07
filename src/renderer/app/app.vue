@@ -6,7 +6,8 @@
             <loading class="App-loading"></loading>
         </div>
         <quoteView v-bind:quoteList="quoteList"
-                   v-bind:quote="quote">
+                   v-bind:quote="quote"
+                   v-bind:settingsTime="settingsTime">
         </quoteView>
     </div>
 </template>
@@ -20,7 +21,7 @@
         QuoteView,
         Loading
       },
-      props: ['quote', 'loading', 'quoteList'],
+      props: ['quote', 'loading', 'quoteList', 'settingsTime'],
 	}
 </script>
 
