@@ -1,29 +1,37 @@
 @import '../../styles/_fonts.scss';
 
 .QuoteList {
+  &-noQuotes {
+    text-align: center;
+  }
+
   &-header {
     padding-bottom: 30px;
     font-family: $font-family-opensans-semibold;
   }
 
+  &-data {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1 0 0;
+
+    &:first-child {
+      flex: 2 0 0;
+    }
+
+    &:not(:last-child) {
+      padding-right: 10px;
+    }
+  }
+
+  &-actionContainer {
+    flex: 0.5 0 0;
+  }
+
   &-header, &-quote {
     display: flex;
     align-items: center;
-
-    span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex: 1 0 0;
-
-      &:first-child {
-        flex: 2 0 0;
-      }
-
-      &:not(:last-child) {
-        padding-right: 10px;
-      }
-    }
   }
 
   &-quote {
@@ -41,10 +49,6 @@
     transform: translate(-50%);
     --button-hover-color: #515151;
     --button-border-radius: 4px 4px 0 0;
-  }
-
-  &-actionContainer {
-    flex: 0.5 0 0;
   }
 
   &-edit {

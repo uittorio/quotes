@@ -1,20 +1,23 @@
 <template>
     <div>
-        <quoteForm v-if="isFormActive"
-                   v-bind:quoteToEdit="quoteToEdit"
-                   v-on:cancel="changeToQuote()">
-        </quoteForm>
-        <quoteList v-bind:quote-list="quoteList"
-                   v-if="isListActive"
-                   v-on:edit="editQuote($event)"
-                   v-on:cancel="changeToQuote()">
-        </quoteList>
-        <quote class="App-quote"
-               v-if="isQuoteActive"
-               v-bind:quote="quote"
-               v-on:goToList="changeToList()"
-               v-on:goToForm="changeToForm()">
-        </quote>
+        <quoteNavigation
+                v-on:goToList="changeToList()"
+                v-on:goToForm="changeToForm()"
+                v-on:goToHome="changeToQuote()">
+        </quoteNavigation>
+        <div class="QuoteView-container">
+            <quoteForm v-if="isFormActive"
+                       v-bind:quoteToEdit="quoteToEdit"
+                       v-on:done="changeToQuote()">
+            </quoteForm>
+            <quoteList v-bind:quote-list="quoteList"
+                       v-if="isListActive"
+                       v-on:edit="editQuote($event)">
+            </quoteList>
+            <quote v-if="isQuoteActive"
+                   v-bind:quote="quote">
+            </quote>
+        </div>
     </div>
 
 </template>
@@ -24,9 +27,10 @@
     import Quote from "./../quote/quote.vue";
     import QuoteList from "./../quoteList/quoteList.vue";
     import QuoteForm from "./../quoteForm/quoteForm.vue";
+    import QuoteNavigation from "./../quoteNavigation/quoteNavigation.vue";
 
 	export default {
-		components: {Quote, QuoteList,QuoteForm},
+		components: {Quote, QuoteList,QuoteForm, QuoteNavigation},
 		data: function() {
           return {
           	route: QuoteRoutes.QUOTE,
@@ -76,3 +80,6 @@
 		props: ['quote', 'quoteList']
 	}
 </script>
+<style lang="scss">
+    @import "./quoteView.scss";
+</style>

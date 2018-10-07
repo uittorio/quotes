@@ -50,11 +50,6 @@
                     class="QuoteForm-delete"
                     v-bind:text="'Delete'">
             </QuoteButton>
-
-            <QuoteButton v-on:pressed="close()"
-                         class="QuoteForm-close"
-                         v-bind:text="'Cancel'">
-            </QuoteButton>
         </div>
 
         <div v-if="errors.length" class="QuoteForm-error">
@@ -85,9 +80,6 @@
 			this.isNewQuote = !this.quoteToEdit.id
 		},
 		methods: {
-			close: function () {
-				this.$emit("cancel");
-			},
 			checkForm: function () {
 				this.errors = [];
 				const quote = this.quote;
@@ -121,7 +113,7 @@
 					})
 					.then(() => {
 						ipcRenderer.send('delete-quote', this.quote);
-                        this.$emit("cancel");
+                        this.$emit("done");
 					})
 					.catch(() => {
 					});
@@ -130,7 +122,7 @@
 				this.checkForm();
 				if (this.errors.length <= 0) {
 					ipcRenderer.send('edit-quote', this.quoteToEdit);
-					this.$emit("cancel");
+					this.$emit("done");
 				}
 			}
 		},

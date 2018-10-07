@@ -1,31 +1,32 @@
 <template>
     <div class="QuoteList-container">
-        <div class="QuoteList-header">
-            <span>Text</span>
-            <span>Title</span>
-            <span>Author</span>
-            <span>Book</span>
-            <span class="QuoteList-actionContainer"></span>
+        <div class="QuoteList-noQuotes"
+             v-if="quoteList.length <= 0">
+            There are not quotes
         </div>
-        <div class="QuoteList-listContainer">
-            <div class="QuoteList-quote" v-for="quote in quoteList">
-                <span> {{ quote.text}} </span>
-                <span> {{ quote.title}} </span>
-                <span> {{ quote.author}} </span>
-                <span> {{ quote.book}} </span>
-                <span class="QuoteList-actionContainer">
+        <div v-if="quoteList.length > 0">
+            <div class="QuoteList-header">
+                <span class="QuoteList-data">Text</span>
+                <span class="QuoteList-data">Title</span>
+                <span class="QuoteList-data">Author</span>
+                <span class="QuoteList-data">Book</span>
+                <span class="QuoteList-data QuoteList-actionContainer"></span>
+            </div>
+            <div class="QuoteList-listContainer">
+                <div class="QuoteList-quote" v-for="quote in quoteList">
+                    <span class="QuoteList-data"> {{ quote.text}} </span>
+                    <span class="QuoteList-data"> {{ quote.title}} </span>
+                    <span class="QuoteList-data"> {{ quote.author}} </span>
+                    <span class="QuoteList-data"> {{ quote.book}} </span>
+                    <span class="QuoteList-data QuoteList-actionContainer">
                 <button v-on:click="editQuote(quote)">
                     <img src="../../icons/edit.svg"
                          class="QuoteList-edit"/>
                 </button>
             </span>
+                </div>
             </div>
         </div>
-
-        <QuoteButton v-on:pressed="close()"
-                     class="QuoteList-back"
-                     v-bind:text="'Go Back'">
-        </QuoteButton>
     </div>
 </template>
 
@@ -48,9 +49,6 @@
 			QuoteButton
 		},
 		methods: {
-			close: function () {
-				this.$emit("cancel");
-			},
 			editQuote: function (quote) {
               this.$emit("edit", quote);
 			}

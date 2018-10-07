@@ -5,7 +5,7 @@
     padding: 10px;
     color: aliceblue;
     background-color: var(--button-color, #343434);
-    border-radius: var(--button-border-radius);
+    border-radius: var(--button-border-radius, 0);
     font-family: $font-family-opensans-semibold;
     font-size: 13px;
 
