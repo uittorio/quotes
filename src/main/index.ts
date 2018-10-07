@@ -16,16 +16,20 @@ import { QuoteService } from "./quote/quoteService";
 import { quoteUrl } from "./quote/quoteUrl";
 import { QuoteList } from "./quote/quoteList";
 const Store = require('electron-store');
+const store = new Store();
 
-QuoteApp.create().then(() => {
-	const store = new Store();
+function getCurrentTimeInFrequency(): QuotesDate {
+	let currentSetting = store.get("setting-time") || "09:00";
+	return QuotesDate.fromTimeInput(currentSetting);
+}
+
+function getAutoStart() {
+	const valueFromStore = store.get("settings-autoStartUp");
+	return valueFromStore !== undefined ? valueFromStore : true;
+}
+QuoteApp.create(getAutoStart()).then(() => {
 	function removeCheckShowQuote(): void {
 		clearInterval(intervalNotification);
-	}
-	
-	function getCurrentTimeInFrequency(): QuotesDate {
-		let currentSetting = store.get("setting-time") || "09:00";
-		return QuotesDate.fromTimeInput(currentSetting);
 	}
 	
 	let windowLoader: WindowLoader;
@@ -45,7 +49,8 @@ QuoteApp.create().then(() => {
 		ApiService.get(quoteUrl).then((quotesData: {quotes: Array<QuoteData>}) => {
 			window.sendFinishLoading();
 			window.sendQuoteList(quotesData.quotes);
-			window.sendSettings(getCurrentTimeInFrequency());
+			window.sendSettingsTime(getCurrentTimeInFrequency());
+			window.sendSettingsAutoStartup(getAutoStart());
 			showQuote(new QuoteList(quotesData.quotes));
 		});
 	});
@@ -71,9 +76,14 @@ QuoteApp.create().then(() => {
 		});
 	});
 	
-	Electron.ipcMain.on("settings", (event: any, time: string) => {
+	Electron.ipcMain.on("settings-time", (event: any, time: string) => {
 		store.set("setting-time", time);
-		window.sendSettings(getCurrentTimeInFrequency());
+		window.sendSettingsTime(getCurrentTimeInFrequency());
+	});
+	
+	Electron.ipcMain.on("settings-autoStartUp", (event: any, autoStart: boolean) => {
+		store.set("settings-autoStartUp", autoStart);
+		window.sendSettingsAutoStartup(getAutoStart());
 	});
 	
 	function afterUpdate(quoteData) {

@@ -8,16 +8,25 @@
                class="QuoteSettings-input"
                v-model="time"
                v-on:change="onTimeUpdate"
-               @change="onTimeUpdate"
                type="time">
+
+        <label for="startUp"
+               class="QuoteSettings-label QuoteSettings-labelStartUp">
+            Do you want the application to open automatically?
+        </label>
+        <input id="startUp"
+               class="QuoteSettings-input"
+               v-model="autoStartUp"
+               v-on:change="onStartUpUpdate"
+               type="checkbox">
     </div>
 
 </template>
 
 <script lang="ts">
 	import { QuotesDate } from "../../../date/date";
-    import * as Electron from "electron";
-    import ipcRenderer = Electron.ipcRenderer;
+	import * as Electron from "electron";
+	import ipcRenderer = Electron.ipcRenderer;
 
 	export default {
 		name: 'QuoteSettings',
@@ -27,15 +36,17 @@
 			}
 		},
 		created: function () {
-			console.log(this.settingsTime);
 			const date = new QuotesDate(this.settingsTime);
 			this.time = date.getHoursAndMinutes();
-			console.log(this.time);
+			this.autoStartUp = this.settingsAutoStartUp;
 		},
-		props: ['settingsTime'],
+		props: ['settingsTime', 'settingsAutoStartUp'],
 		methods: {
 			onTimeUpdate: function () {
-              ipcRenderer.send('settings', this.time);
+				ipcRenderer.send('settings-time', this.time);
+			},
+			onStartUpUpdate: function () {
+				ipcRenderer.send('settings-autoStartUp', this.autoStartUp);
 			}
 		}
 	}

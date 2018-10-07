@@ -68,9 +68,15 @@ export class QuoteWindow implements Messenger {
 		});
 	}
 	
-	public sendSettings(time: QuotesDate) {
-		this._window.webContents.send("settings", {
+	public sendSettingsTime(time: QuotesDate) {
+		this._window.webContents.send("settings-time", {
 			time: time.date
+		});
+	}
+	
+	public sendSettingsAutoStartup(autoStartUp: boolean) {
+		this._window.webContents.send("settings-autoStartUp", {
+			autoStartUp: autoStartUp
 		});
 	}
 }

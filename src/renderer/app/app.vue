@@ -7,7 +7,8 @@
         </div>
         <quoteView v-bind:quoteList="quoteList"
                    v-bind:quote="quote"
-                   v-bind:settingsTime="settingsTime">
+                   v-bind:settings-time="settingsTime"
+                   v-bind:settings-auto-start-up="settingsAutoStartUp">
         </quoteView>
     </div>
 </template>
@@ -21,7 +22,13 @@
         QuoteView,
         Loading
       },
-      props: ['quote', 'loading', 'quoteList', 'settingsTime'],
+      props: [
+      	'quote',
+        'loading',
+        'quoteList',
+        'settingsTime',
+        'settingsAutoStartUp'
+      ],
 	}
 </script>
 

@@ -8,7 +8,8 @@
         </quoteNavigation>
         <div class="QuoteView-container">
             <quote-settings v-if="isSettingsActive"
-                            v-bind:settingsTime="settingsTime">
+                            v-bind:settingsTime="settingsTime"
+                            v-bind:settings-auto-start-up="settingsAutoStartUp">
             </quote-settings>
             <quoteForm v-if="isFormActive"
                        v-bind:quoteToEdit="quoteToEdit"
@@ -87,7 +88,7 @@
             this.route = QuoteRoutes.FORM;
           }
         },
-		props: ['quote', 'quoteList', 'settingsTime']
+		props: ['quote', 'quoteList', 'settingsTime', 'settingsAutoStartUp']
 	}
 </script>
 <style lang="scss">

@@ -1,14 +1,14 @@
 import * as Electron from "electron";
 
 export class QuoteApp {
-	static create() {
+	static create(openAtLogin) {
 		return new Promise((resolve) => {
 			Electron.app.on('ready', () => {
 				resolve();
 			});
 			
 			Electron.app.setLoginItemSettings({
-				openAtLogin: true
+				openAtLogin: openAtLogin
 			});
 			
 			Electron.app.setAppUserModelId("com.quotes.id");
